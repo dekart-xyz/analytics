@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+  cloudsql:
+    build: ./docker/cloudsql
+    volumes:
+      - "${GOOGLE_APPLICATION_CREDENTIALS}:${GOOGLE_APPLICATION_CREDENTIALS}"
+    env_file:
+      - ".env"
+  notebook:
+    build: ./docker/notebook
+    volumes:
+      - "./notebooks:/home/jovyan/notebooks"
+    ports:
+      - "8888:8888"
+    environment:
+      JUPYTER_TOKEN: "${JUPYTER_TOKEN}"
+  adminer:
+    image: adminer
+    restart: always
+    profiles:
+      - debug
+    ports:
+      - 8081:8080
