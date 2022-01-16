@@ -10,10 +10,13 @@ services:
     build: ./docker/notebook
     volumes:
       - "./notebooks:/home/jovyan/notebooks"
+      - "${GOOGLE_APPLICATION_CREDENTIALS}:${GOOGLE_APPLICATION_CREDENTIALS}"
     ports:
       - "8888:8888"
     environment:
       JUPYTER_TOKEN: "${JUPYTER_TOKEN}"
+    env_file:
+      - ".env"
   adminer:
     image: adminer
     restart: always

@@ -5,12 +5,14 @@ select
     archived,
     reports.created_at as reports_created_at,
     reports.updated_at as reports_updated_at,
-    query_text,
+    query_text as query_text_inline,
     job_status,
     job_error,
     total_rows,
     bytes_processed,
     result_size,
+    queries.query_source,
+    queries.query_source_id,
     queries.created_at as queries_created_at,
     queries.updated_at as queries_updated_at
 from queries left join reports on queries.report_id = reports.id
